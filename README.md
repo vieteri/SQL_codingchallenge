@@ -29,4 +29,26 @@ cursor.executemany(query, sqltuples)
 
 ## Setup
 
-Create your own secret.py file where you have the needed fields for connecting to the database you choose.
+  Install needed library
+  For MariaDB
+  ``` python
+  pip3 install mariadb
+  ```
+  For PostgreSQL
+  ``` python
+  pip3 install psycopg2
+  ```
+ 
+  Configure your own database: secret.py
+  
+  ``` python
+    host=*****
+    user=*****
+    password=*****
+    dbname=******
+  ```
+ 
+    
+  
+
+);
