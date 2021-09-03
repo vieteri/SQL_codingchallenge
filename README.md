@@ -28,8 +28,8 @@ cursor.executemany(query, sqltuples)
 ``` 
 
 ## Setup
-
-  Install needed library
+  You have to install the correct library corresponding to the database you use
+  
   For MariaDB
   ``` python
   pip3 install mariadb
@@ -49,6 +49,3 @@ cursor.executemany(query, sqltuples)
   ```
  
     
-  
-
-);
