@@ -16,16 +16,6 @@ pallet varchar(255)
 );
 ```
 
-## Applying xml data to database
-Some key lines fetched from the code
-
-``` py
-dom = ElementTree.parse('shipment.xml')
-args_list = ([t.text for t in dom.iter(tag)] for tag in ['ToteId', 'SKUId', 'PalletId'])
-query = "Insert into line(box, product, pallet) VALUES (%s, %s, %s);"
-sqltuples = list(zip(*args_list))
-cursor.executemany(query, sqltuples)
-``` 
 
 ## Setup
   You have to install the correct library corresponding to the database you use
@@ -48,4 +38,40 @@ cursor.executemany(query, sqltuples)
     dbname=******
   ```
  
+ Connect to your configured database
+ 
+  ``` python
+  import secret
+  def connect():
+    return mariadb.connect(database=secret.dbname, user=secret.user, host=secret.host, password=secret.password)
+  ```
+
+## Applying xml data to database
+Some key lines fetched from the code
+
+``` py
+dom = ElementTree.parse('shipment.xml')
+args_list = ([t.text for t in dom.iter(tag)] for tag in ['ToteId', 'SKUId', 'PalletId'])
+query = "Insert into line(box, product, pallet) VALUES (%s, %s, %s);"
+sqltuples = list(zip(*args_list))
+cursor.executemany(query, sqltuples)
+
+
+ def executequery(query):
+      connection = connect()
+      cursor = connection.cursor()
+      cursor.execute(query)
+      if 'SELECT' in query:
+          for r in cursor.fetchall():
+              print(r)
+      connection.close()
+
+``` 
+
+## Read data from database
+
+``` py
+   executequery('SELECT * FROM line')
+``` 
+
     
